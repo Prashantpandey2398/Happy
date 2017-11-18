@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @include('partials._flash')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <a href="{{ route('articles.index') }}" class="btn btn-default btn-xs"><- Back</a>

@@ -77,8 +77,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        $('.confirm-delete').on('click', function(){
-            confirm('Are you sure you want to delete this item?');
+        $('.confirm-delete').on('click', function(event){
+            return confirm('Are you sure you want to delete this item?');
         });
     </script>
 </body>

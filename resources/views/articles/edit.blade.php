@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @include('partials._error')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -15,7 +16,7 @@
                             <input type="text" class="form-control" id="title" name="title" value="{{ $article->title }}">
                         </div>
                         <div class="form-group">
-                            <label for="body">Text</label>
+                            <label for="body">Body</label>
                             <textarea name="body" required class="form-control" id="body">{{ $article->body }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
