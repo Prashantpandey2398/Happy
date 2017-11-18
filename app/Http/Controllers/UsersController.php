@@ -86,6 +86,6 @@ class UsersController extends Controller
 
        $user->delete();
 
-       return redirect('welcome');
+       return redirect('/');
     }
 }
