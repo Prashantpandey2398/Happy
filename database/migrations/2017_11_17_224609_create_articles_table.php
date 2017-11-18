@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title')->nullable();
-            $table->string('body');
+            $table->longText('body');
             $table->timestamps();
         });
     }

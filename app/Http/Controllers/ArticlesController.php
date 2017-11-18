@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
-class PostsController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $articles = $user->articles;
+        return view('articles.index', compact('articles'));
     }
 
     /**
@@ -23,7 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -34,7 +39,19 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+
+        $input = $request->all();
+
+        Article::create([
+            'title' => $input['title'],
+            'body' => $input['body'],
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -45,7 +62,12 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::find($id);
+        if (Gate::allows('access-article', $article)) {
+            return view('articles.show', compact('article'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -56,7 +78,12 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        if (Gate::allows('access-article', $article)) {
+            return view('articles.edit', compact('article'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -68,7 +95,16 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required',
+        ]);
+
+        $input = $request->all();
+        $article = Article::find($id);
+
+        $article->update($input);
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +115,10 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+
+        $article->delete();
+
+        return redirect()->back();
     }
 }

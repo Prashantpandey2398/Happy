@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="{{ route('articles.index') }}">Articles</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -76,5 +76,10 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $('.confirm-delete').on('click', function(){
+            confirm('Are you sure you want to delete this item?');
+        });
+    </script>
 </body>
 </html>
