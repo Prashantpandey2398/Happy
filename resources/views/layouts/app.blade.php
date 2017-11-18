@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Blog') }}</title>
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -63,6 +63,15 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    <li>
+                                        <a id="delete-btn" href="#">
+                                            Delete Account
+                                        </a>
+                                        <form id="delete-form" method="POST" action="{{ route('users.destroy', Auth::id()) }}" accept-charset="UTF-8">
+                                            {{ method_field('DELETE') }}
+                                            {{csrf_field()}}
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
                         @endguest
@@ -79,6 +88,14 @@
     <script>
         $('.confirm-delete').on('click', function(event){
             return confirm('Are you sure you want to delete this item?');
+        });
+
+        $('#delete-btn').on('click', function(event){
+            event.preventDefault();
+            var confirm_delete = confirm('Are you sure you want to delete your account?');
+            if(confirm_delete== true){
+                $('#delete-form').submit();
+            }
         });
     </script>
 </body>

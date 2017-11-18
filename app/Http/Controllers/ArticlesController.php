@@ -6,6 +6,8 @@ use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class ArticlesController extends Controller
 {
@@ -45,13 +47,15 @@ class ArticlesController extends Controller
 
         $input = $request->all();
 
-        Article::create([
+        $article = Article::create([
             'title' => $input['title'],
             'body' => $input['body'],
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->back();
+        Session::flash('flash_message', 'Article successfully created');
+
+        return redirect()->route('articles.show', $article->id);
     }
 
     /**
@@ -104,7 +108,9 @@ class ArticlesController extends Controller
 
         $article->update($input);
 
-        return redirect()->back();
+        Session::flash('flash_message', 'Article successfully updated');
+
+        return redirect()->route('articles.show', $article->id);
     }
 
     /**
@@ -118,6 +124,8 @@ class ArticlesController extends Controller
         $article = Article::find($id);
 
         $article->delete();
+
+        Session::flash('flash_message', 'Article successfully deleted');
 
         return redirect()->back();
     }

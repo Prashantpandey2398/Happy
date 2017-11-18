@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+                @guest
                 <div class="panel-heading">Sign in</div>
 
                 <div class="panel-body">
@@ -63,6 +64,11 @@
                     </form>
                 </div>
             </div>
+            @else
+                <div class="panel-body">
+                    You are logged in
+                </div>
+            @endguest
         </div>
     </div>
 </div>

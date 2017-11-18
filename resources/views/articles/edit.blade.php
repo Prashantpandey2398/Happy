@@ -12,14 +12,14 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Title (Optional)</label>
                             <input type="text" class="form-control" id="title" name="title" value="{{ $article->title }}">
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
                             <textarea name="body" required class="form-control" id="body">{{ $article->body }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

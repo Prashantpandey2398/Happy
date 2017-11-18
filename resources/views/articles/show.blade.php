@@ -5,10 +5,10 @@
     @include('partials._flash')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{{ route('articles.index') }}" class="btn btn-default btn-xs"><- Back</a>
+            <a href="{{ route('articles.index') }}" class="btn btn-primary btn-xs custom-btn"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
             <div class="panel panel-default">
                 <div class="panel-heading">Details
-                    <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-default btn-xs pull-right">Edit</a>
+                    <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
