@@ -12,6 +12,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="app">
@@ -87,6 +89,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('editor/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('editor/ckfinder/ckfinder.js') }}"></script>
     <script>
         $('.confirm-delete').on('click', function(event){
             return confirm('Are you sure you want to delete this item?');
@@ -99,6 +103,22 @@
                 $('#delete-form').submit();
             }
         });
+
+        $('.editor').each(function(){
+            var id = this.id;
+            var editor = CKEDITOR.replace( id, {
+                filebrowserBrowseUrl : '/editor/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl : '/editor/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl : '/editor/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+                extraPlugins: 'codesnippet',
+                codeSnippet_theme: 'monokai_sublime'
+            });
+            CKFinder.setupCKEditor( editor, '../' );
+        });
+
     </script>
 </body>
 </html>

@@ -17,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" required class="form-control" id="body">{{ $article->body }}</textarea>
+                            <textarea name="body" required class="form-control editor" id="body">{{ $article->body }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
