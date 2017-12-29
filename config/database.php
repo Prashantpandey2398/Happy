@@ -1,4 +1,9 @@
 <?php
+parse_url(getenv("mysql://bf610783f12549:67a34e77@us-cdbr-iron-east-05.cleardb.net/heroku_8614741a4cd3541?reconnect=true"));
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
 
 return [
 
@@ -14,6 +19,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
+
 
     /*
     |--------------------------------------------------------------------------
