@@ -22,7 +22,7 @@
                         </tr>
                         <tr>
                             <th>Body</th>
-                            <td>{!! $article->body  !!}}</td>
+                            <td>{!! $article->body  !!}</td>
                         </tr>
                         <tr>
                             <th>Created</th>
