@@ -89,8 +89,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('editor/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('editor/ckfinder/ckfinder.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js"></script>
     <script>
         $('.confirm-delete').on('click', function(event){
             return confirm('Are you sure you want to delete this item?');
@@ -104,20 +103,68 @@
             }
         });
 
-        $('.editor').each(function(){
+
+
+        $('.editor1').each(function(){
             var id = this.id;
-            var editor = CKEDITOR.replace( id, {
-                filebrowserBrowseUrl : '/editor/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '/editor/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '/editor/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-                extraPlugins: 'codesnippet',
-                codeSnippet_theme: 'monokai_sublime'
-            });
-            CKFinder.setupCKEditor( editor, '../' );
+            CKEDITOR.replace( id, {
+                toolbar: [
+                    { name: 'document', items: [ 'Print' , 'Format', 'Font', 'FontSize'] },
+                    { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                    { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                    { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                    { name: 'links', items: [ 'Link', 'Unlink' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                    { name: 'insert', items: [ 'Image', 'Table' ] },
+                    { name: 'tools', items: [ 'Maximize' ] },
+                    { name: 'editing', items: [ 'Scayt' ] }
+                ],
+                customConfig: '',
+                disallowedContent: 'img{width,height,float}',
+                extraAllowedContent: 'img[width,height,align]',
+                extraPlugins: 'tableresize',
+                // Make the editing area bigger than default.
+                height: 800,
+                contentsCss: [ 'https://cdn.ckeditor.com/4.7.3/full-all/contents.css', '/editor/ckeditor/mystyle.css' ],
+                bodyClass: 'document-editor',
+                format_tags: 'p;h1;h2;h3;pre',
+
+                stylesSet: [
+                    /* Inline Styles */
+                    { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                    { name: 'Cited Work', element: 'cite' },
+                    { name: 'Inline Quotation', element: 'q' },
+                    /* Object Styles */
+                    {
+                        name: 'Special Container',
+                        element: 'div',
+                        styles: {
+                            padding: '5px 10px',
+                            background: '#eee',
+                            border: '1px solid #ccc'
+                        }
+                    },
+                    {
+                        name: 'Compact table',
+                        element: 'table',
+                        attributes: {
+                            cellpadding: '5',
+                            cellspacing: '0',
+                            border: '1',
+                            bordercolor: '#ccc'
+                        },
+                        styles: {
+                            'border-collapse': 'collapse'
+                        }
+                    },
+                    { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                    { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                ]
+            } );
         });
+
 
     </script>
 </body>
