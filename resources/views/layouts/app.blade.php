@@ -128,7 +128,7 @@
                 // Make the editing area bigger than default.
                 height: 800,
                 contentsCss: [ 'https://cdn.ckeditor.com/4.7.3/full-all/contents.css', '/editor/ckeditor/mystyle.css' ],
-                bodyClass: 'document-editor',
+                bodyClass: 'article-editor',
                 format_tags: 'p;h1;h2;h3;pre',
 
                 stylesSet: [
