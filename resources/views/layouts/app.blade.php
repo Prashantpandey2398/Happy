@@ -142,7 +142,7 @@
                     var height = closest_element.height()+50;
                     if($(this).attr('aria-expanded') === 'true'){
                         console.log('notclick');
-                        $('.note-toolbar').height(58);
+                        $('.note-toolbar').height(30);
                     }
                     else {
                         $('.note-toolbar').height(height + 25);
@@ -152,7 +152,7 @@
             });
             $(".dropdown-toggle").blur(function () {
                 if($(this).hasClass("note-btn")) {
-                    $('.note-toolbar').height(58);
+                    $('.note-toolbar').height(30);
 
                 }
             });
