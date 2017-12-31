@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Blog') }}</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
+    <link href="{{ asset('editor/summernote-master/summernote-master/dist/summernote.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
@@ -89,7 +90,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('editor/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('editor/summernote-master/summernote-master/dist/summernote.js') }}"></script>
     <script>
         $('.confirm-delete').on('click', function(event){
             return confirm('Are you sure you want to delete this item?');
@@ -103,19 +104,25 @@
             }
         });
 
-        $('.editor1').each(function(){
-            var id = this.id;
-            var editor = CKEDITOR.replace( id, {
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 500,
             });
         });
+
     </script>
 
     <style>
         #cke_1_top {
-            height: 40px !important;
+            height: 37px !important;
             overflow-x: scroll;
         }
-
+        /*.note-toolbar {
+            overflow-x: scroll;
+        }*/
+        /*.note-btn-group {*/
+            /*display: flex;*/
+        /*}*/
     </style>
 </body>
 </html>
