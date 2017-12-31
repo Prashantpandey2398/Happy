@@ -112,7 +112,7 @@
 
     <style>
         #cke_1_top {
-            height: 50px !important;
+            height: 40px !important;
             overflow-x: scroll;
         }
 

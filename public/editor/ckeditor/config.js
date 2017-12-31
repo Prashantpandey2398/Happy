@@ -23,6 +23,6 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'about', groups: [ 'about' ] }
     ];
 
-    config.removeButtons = 'Form,Scayt,Source,Templates,Cut,Replace,NewPage,Copy,Preview,PasteText,Paste,PasteFromWord,SelectAll,Radio,TextField,Textarea,TextColor,Maximize,About,Image,CreateDiv,BidiRtl,BidiLtr,Anchor,Unlink,Flash,Language,HorizontalRule,Table,Smiley,SpecialChar,PageBreak,Iframe,BGColor,ShowBlocks,RemoveFormat,Strike,Subscript,Superscript,ImageButton,Button,HiddenField,Find,Checkbox,Select,Save';
+    config.removeButtons = 'Form,Scayt,Source,Templates,NewPage,SelectAll,Radio,TextField,Textarea,TextColor,Maximize,About,Image,CreateDiv,BidiRtl,BidiLtr,Anchor,Unlink,Flash,Language,HorizontalRule,Table,Smiley,SpecialChar,PageBreak,Iframe,BGColor,ShowBlocks,RemoveFormat,Strike,Subscript,Superscript,ImageButton,Button,HiddenField,Find,Checkbox,Select,Save';
 
 };

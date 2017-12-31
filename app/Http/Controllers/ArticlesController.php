@@ -42,7 +42,7 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'body' => 'required'
+
         ]);
 
         $input = $request->all();
