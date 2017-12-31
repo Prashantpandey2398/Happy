@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create new Article</div>
                 <div class="panel-body">
-                    <form method="POST" action="{{ route('articles.store') }}">
+                    <form method="POST" action="{{ route('articles.store') }}" novalidate>
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="title">Title (Optional)</label>

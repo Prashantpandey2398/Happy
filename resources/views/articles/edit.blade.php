@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Edit {{ $article->title }}</div>
                 <div class="panel-body">
-                    <form method="POST" action="{{ route('articles.update', $article->id) }}">
+                    <form method="POST" action="{{ route('articles.update', $article->id) }}" novalidate>
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
