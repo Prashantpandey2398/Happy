@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Blog') }}</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
-    <link href="{{ asset('editor/summernote-master/summernote-master/dist/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('editor/summernote-master/dist/summernote.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
@@ -90,7 +90,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('editor/summernote-master/summernote-master/dist/summernote.js') }}"></script>
+    <script src="{{ asset('editor/summernote-master/dist/summernote.js') }}"></script>
     <script>
         $('.confirm-delete').on('click', function(event){
             return confirm('Are you sure you want to delete this item?');
