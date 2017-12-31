@@ -106,7 +106,7 @@
 
         $(document).ready(function() {
             $('.summernote').summernote({
-                height: 500,
+                height: 300,
             });
         });
 
@@ -120,9 +120,43 @@
         /*.note-toolbar {
             overflow-x: scroll;
         }*/
-        /*.note-btn-group {*/
-            /*display: flex;*/
-        /*}*/
+        .note-toolbar {
+           display: flex;
+           overflow-x: scroll;
+            overflow-y: hidden;
+        }
+        .note-toolbar .note-btn-group {
+            display: flex;
+            height: 30px;
+        }
+        .note-btn {
+            height: 30px;
+        }
     </style>
+
+    <script>
+        $('document').ready(function() {
+            $(".dropdown-toggle").click(function () {
+                if($(this).hasClass("note-btn")) {
+                    var closest_element = $(this).next();
+                    var height = closest_element.height()+50;
+                    if($(this).attr('aria-expanded') === 'true'){
+                        console.log('notclick');
+                        $('.note-toolbar').height(58);
+                    }
+                    else {
+                        $('.note-toolbar').height(height + 25);
+                    }
+
+                }
+            });
+            $(".dropdown-toggle").blur(function () {
+                if($(this).hasClass("note-btn")) {
+                    $('.note-toolbar').height(58);
+
+                }
+            });
+        });
+    </script>
 </body>
 </html>
