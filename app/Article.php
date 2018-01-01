@@ -16,7 +16,7 @@ class Article extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'title', 'body', 'user_id'
+        'title', 'body', 'user_id', 'make_public'
     ];
 
     public function user()
