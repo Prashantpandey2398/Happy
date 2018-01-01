@@ -20,7 +20,7 @@
                     <span>
                          <strong>{!! $article->title?$article->title:'&nbsp'!!}</strong>
                     </span>
-                        @if(!Auth::guest())
+                        @if(!Auth::guest() && Auth::User()->id == $article->user_id)
                         <span class="pull-right">
                         <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                         <a href="{{ route('articles.setting', $article->id) }}"  class="btn btn-primary btn-xs"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>

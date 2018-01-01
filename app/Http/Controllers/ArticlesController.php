@@ -83,6 +83,8 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = Article::find($id);
+        if(Auth::User()->id != $article->id)
+            abort(404);
         if (Gate::allows('access-article', $article)) {
             return view('articles.edit', compact('article'));
         } else {
@@ -132,6 +134,8 @@ class ArticlesController extends Controller
     public function setting($id)
     {
         $article = Article::find($id);
+        if(Auth::User()->id != $article->id)
+            abort(404);
         if (Gate::allows('access-article', $article)) {
             return view('articles.setting', compact('article'));
         } else {
