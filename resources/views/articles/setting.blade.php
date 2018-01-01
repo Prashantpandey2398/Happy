@@ -18,8 +18,7 @@
                                     <option value="1" {{$article->make_public == 1? 'selected': ''}} >Yes</option>
                                 </select>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Submit Setting</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>

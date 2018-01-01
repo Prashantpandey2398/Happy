@@ -18,14 +18,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span>
-                         <strong>{{$article->title}}</strong>
+                         <strong>{!! $article->title?$article->title:'&nbsp'!!}</strong>
                     </span>
-                    @if(!Auth::guest())
+                        @if(!Auth::guest())
                         <span class="pull-right">
                         <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                        <a href="{{ route('articles.setting', $article->id) }}"  class="btn btn-primary btn-xs"><i class="fa fa-cog" aria-hidden="true"></i> Setting</a>
+                        <a href="{{ route('articles.setting', $article->id) }}"  class="btn btn-primary btn-xs"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
                         </span>
-                    @endif
+                        @endif
+
                 </div>
                 <div class="panel-body">
                     {!! $article->body !!}
