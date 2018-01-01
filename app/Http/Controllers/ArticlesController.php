@@ -52,9 +52,7 @@ class ArticlesController extends Controller
             'body' => $input['body'],
             'user_id' => Auth::id()
         ]);
-
         Session::flash('flash_message', 'Article successfully created');
-
         return redirect()->route('articles.show', $article->id);
     }
 
@@ -67,7 +65,8 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        if (Gate::allows('access-article', $article) || $article->make_public) {
+        if($article->make_public || $article->user_id == Auth::User()->id)
+        {
             return view('articles.show', compact('article'));
         } else {
             abort(404);
@@ -83,12 +82,10 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = Article::find($id);
-        if(Auth::User()->id != $article->id)
-            abort(404);
-        if (Gate::allows('access-article', $article)) {
+        if ($article->user_id == Auth::User()->id) {
             return view('articles.edit', compact('article'));
         } else {
-            return redirect()->back();
+           abort(404);
         }
     }
 
@@ -106,11 +103,8 @@ class ArticlesController extends Controller
 
         $input = $request->all();
         $article = Article::find($id);
-
         $article->update($input);
-
         Session::flash('flash_message', 'Article successfully updated');
-
         return redirect()->route('articles.show', $article->id);
     }
 
@@ -123,9 +117,7 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         $article = Article::find($id);
-
         $article->delete();
-
         Session::flash('flash_message', 'Article successfully deleted');
 
         return redirect()->back();
@@ -134,12 +126,10 @@ class ArticlesController extends Controller
     public function setting($id)
     {
         $article = Article::find($id);
-        if(Auth::User()->id != $article->id)
-            abort(404);
-        if (Gate::allows('access-article', $article)) {
+        if ($article->user_id == Auth::User()->id) {
             return view('articles.setting', compact('article'));
         } else {
-            return redirect()->back();
+           abort(404);
         }
     }
 }
