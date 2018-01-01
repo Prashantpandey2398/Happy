@@ -100,7 +100,6 @@ class ArticlesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'body' => 'required',
         ]);
 
         $input = $request->all();
