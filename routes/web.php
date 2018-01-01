@@ -18,5 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('articles', 'ArticlesController');
-Route::resource('users', 'UsersController');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('articles', 'ArticlesController', ['except' => ['show']]);
+    Route::get('articles/{id}/setting', 'ArticlesController@setting')->name('articles.setting');
+    Route::resource('users', 'UsersController');
+});
+
+Route::get('articles/{id}', 'ArticlesController@show')->name('articles.show');

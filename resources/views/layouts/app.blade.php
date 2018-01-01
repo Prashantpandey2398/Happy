@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('editor/summernote/dist/summernote.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 
 
 </head>

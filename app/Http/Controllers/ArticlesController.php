@@ -42,7 +42,7 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-
+            'body' => 'required'
         ]);
 
         $input = $request->all();
@@ -67,10 +67,10 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        if (Gate::allows('access-article', $article)) {
+        if (Gate::allows('access-article', $article) || $article->make_public) {
             return view('articles.show', compact('article'));
         } else {
-            return redirect()->back();
+            abort(404);
         }
     }
 
@@ -128,5 +128,15 @@ class ArticlesController extends Controller
         Session::flash('flash_message', 'Article successfully deleted');
 
         return redirect()->back();
+    }
+
+    public function setting($id)
+    {
+        $article = Article::find($id);
+        if (Gate::allows('access-article', $article)) {
+            return view('articles.setting', compact('article'));
+        } else {
+            return redirect()->back();
+        }
     }
 }
