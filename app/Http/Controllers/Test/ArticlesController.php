@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Test;
 
 use App\Article;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class ArticlesController extends Controller
@@ -20,7 +19,7 @@ class ArticlesController extends Controller
     {
         $user = Auth::user();
         $articles = $user->articles;
-        return view('articles.index', compact('articles'));
+        return response()->json($articles, 201);
     }
 
     /**
@@ -46,15 +45,9 @@ class ArticlesController extends Controller
         ]);
 
         $input = $request->all();
-
-        $article = Article::create([
-            'title' => $input['title'],
-            'body' => $input['body'],
-            'user_id' => Auth::id()
-        ]);
-
-        Session::flash('flash_message', 'Article successfully created');
-        return redirect()->route('articles.show', $article->id);
+        //For Test Case
+        $article = Article::create($input);
+        return response()->json($article, 201);
     }
 
     /**
@@ -68,7 +61,7 @@ class ArticlesController extends Controller
         $article = Article::find($id);
         if($article->make_public || $article->user_id == Auth::User()->id)
         {
-            return view('articles.show', compact('article'));
+            return response()->json($article, 201);
         } else {
             abort(404);
         }
@@ -84,9 +77,9 @@ class ArticlesController extends Controller
     {
         $article = Article::find($id);
         if ($article->user_id == Auth::User()->id) {
-            return view('articles.edit', compact('article'));
+            return response()->json($article, 201);
         } else {
-           abort(404);
+            abort(404);
         }
     }
 
@@ -105,8 +98,8 @@ class ArticlesController extends Controller
         $input = $request->all();
         $article = Article::find($id);
         $article->update($input);
-        Session::flash('flash_message', 'Article successfully updated');
-        return redirect()->route('articles.show', $article->id);
+        return response()->json($article, 201);
+
     }
 
     /**
@@ -120,7 +113,6 @@ class ArticlesController extends Controller
         $article = Article::find($id);
         $article->delete();
         Session::flash('flash_message', 'Article successfully deleted');
-
         return redirect()->back();
     }
 
@@ -128,9 +120,10 @@ class ArticlesController extends Controller
     {
         $article = Article::find($id);
         if ($article->user_id == Auth::User()->id) {
-            return view('articles.setting', compact('article'));
+            return response()->json($article, 201);
+
         } else {
-           abort(404);
+            abort(404);
         }
     }
 }
