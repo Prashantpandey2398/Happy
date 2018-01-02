@@ -66,10 +66,19 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        if($article->make_public || $article->user_id == Auth::User()->id)
+        if(is_null($article))
+        {
+            abort(404);
+        }
+
+        if($article->make_public)
         {
             return view('articles.show', compact('article'));
-        } else {
+        }
+        elseif(Auth::check() &&  $article->user_id == Auth::User()->id){
+            return view('articles.show', compact('article'));
+        }
+        else {
             abort(404);
         }
     }
