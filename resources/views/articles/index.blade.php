@@ -11,25 +11,30 @@
                 </div>
                 <div class="panel-body">
                     @if($articles->count())
-                        <table class="table">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
                                     <th>Created At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($articles as $article)
-                                    <tr>
-                                        <td>{{ $article->id }}</td>
-                                        <td>{{ $article->title }}</td>
+                                    <tr class='clickable-row' data-href='/articles/{{$article->id}}'>
+                                        <td>
+                                                {{ $article->id }}
+                                        </td>
+                                        <td>
+                                            {{--<a href="{!! route('articles.show', $article->id) !!}">--}}
+                                            {{ $article->title }}
+                                        </td>
                                         <td>{{ $article->created_at->format('l jS \\of F Y') }}</td>
                                         <td>
                                             <form method="POST" action="{{ route('articles.destroy', $article->id) }}" accept-charset="UTF-8" class="form-inline pull-right">
                                                 {{ method_field('DELETE') }}
                                                 {{csrf_field()}}
-                                                <a href="{!! route('articles.show', $article->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye fa-fw"></i> Show</a>
                                                 <button type="submit" class="btn btn-xs btn-danger confirm-delete"><i class="fa fa-trash-o"></i> Delete</button>
                                             </form>
                                         </td>
@@ -45,4 +50,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 @endsection
