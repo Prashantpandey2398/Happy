@@ -40,6 +40,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        /**
+         * Redirect logged in users to article page.
+         */
         return redirect()->route('articles.index');
     }
 }

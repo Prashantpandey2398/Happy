@@ -11,10 +11,9 @@
                 </div>
                 <div class="panel-body">
                     @if($articles->count())
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Title</th>
                                     <th>Created At</th>
                                     <th>Actions</th>
@@ -24,10 +23,6 @@
                                 @foreach($articles as $article)
                                     <tr class='clickable-row' data-href='/articles/{{$article->id}}'>
                                         <td>
-                                                {{ $article->id }}
-                                        </td>
-                                        <td>
-                                            {{--<a href="{!! route('articles.show', $article->id) !!}">--}}
                                             {{ $article->title }}
                                         </td>
                                         <td>{{ $article->created_at->format('l jS \\of F Y') }}</td>
