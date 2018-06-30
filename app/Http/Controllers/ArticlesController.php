@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Contracts\ArticleContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+
 
 class ArticlesController extends Controller
 {
+    protected $articlesRepo;
+
+    public function __construct(ArticleContract $articlesContract)
+    {
+        $this->articlesRepo = $articlesContract;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +42,7 @@ class ArticlesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,13 +51,16 @@ class ArticlesController extends Controller
             'body' => 'required'
         ]);
 
-        $input = $request->all();
 
-        $article = Article::create([
-            'title' => $input['title'],
-            'body' => $input['body'],
+        $request = $request->except(['_token', '_method', 'files']);
+
+        $params = [
+            'title' => $request['title'],
+            'body' => $request['body'],
             'user_id' => Auth::id()
-        ]);
+        ];
+
+        $article = $this->articlesRepo->create($params);
 
         Session::flash('flash_message', 'Article successfully created');
         return redirect()->route('articles.show', $article->id);
@@ -60,25 +69,21 @@ class ArticlesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $article = Article::find($id);
-        if(is_null($article))
-        {
+        $article = $this->articlesRepo->show($id);
+        if (is_null($article)) {
             abort(404);
         }
 
-        if($article->make_public)
-        {
+        if ($article->make_public) {
             return view('articles.show', compact('article'));
-        }
-        elseif(Auth::check() &&  $article->user_id == Auth::User()->id){
+        } elseif (Auth::check() && $article->user_id == Auth::User()->id) {
             return view('articles.show', compact('article'));
-        }
-        else {
+        } else {
             abort(404);
         }
     }
@@ -86,34 +91,34 @@ class ArticlesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $article = Article::find($id);
+        $article = $this->articlesRepo->show($id);
+
         if ($article->user_id == Auth::User()->id) {
             return view('articles.edit', compact('article'));
         } else {
-           abort(404);
+            abort(404);
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-        ]);
+        $request = $request->except(['_token', '_method', 'files']);
 
-        $input = $request->all();
-        $article = Article::find($id);
-        $article->update($input);
+        $this->articlesRepo->update($id, $request);
+        $article = $this->articlesRepo->show($id);
+
         Session::flash('flash_message', 'Article successfully updated');
         return redirect()->route('articles.show', $article->id);
     }
@@ -121,13 +126,12 @@ class ArticlesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $article = Article::find($id);
-        $article->delete();
+        $this->articlesRepo->delete($id);
         Session::flash('flash_message', 'Article successfully deleted');
 
         return redirect()->back();
@@ -135,11 +139,11 @@ class ArticlesController extends Controller
 
     public function setting($id)
     {
-        $article = Article::find($id);
+        $article = $this->articlesRepo->show($id);
         if ($article->user_id == Auth::User()->id) {
             return view('articles.setting', compact('article'));
         } else {
-           abort(404);
+            abort(404);
         }
     }
 }
