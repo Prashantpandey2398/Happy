@@ -17,7 +17,13 @@
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" required class="form-control summernote" id="body">{{ $article->body }}</textarea>
+                            <textarea name="body" required class="form-control summernote" id="body">
+                            <?php 
+                                if(file_exists("uploads/artical/".$article->body)){
+                                   echo file_get_contents(url("uploads/artical/".$article->body));
+                                }
+                            ?>
+                            </textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

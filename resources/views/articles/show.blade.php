@@ -29,7 +29,11 @@
 
                 </div>
                 <div class="panel-body">
-                    {!! $article->body !!}
+                    <?php 
+                        if(file_exists("uploads/artical/".$article->body)){
+                            echo file_get_contents(url("uploads/artical/".$article->body));
+                        }
+                    ?>
                 </div>
             </div>
         </div>

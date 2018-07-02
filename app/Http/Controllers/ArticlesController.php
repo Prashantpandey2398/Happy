@@ -54,9 +54,15 @@ class ArticlesController extends Controller
 
         $request = $request->except(['_token', '_method', 'files']);
 
+        $html_url = (Auth::User()->id)."_".time().".html";
+
+        $myfile = fopen("uploads/artical/".$html_url, "w");
+        fwrite($myfile, $request['body']);
+        fclose($myfile);
+
         $params = [
             'title' => $request['title'],
-            'body' => $request['body'],
+            'body'  => $html_url,
             'user_id' => Auth::id()
         ];
 
@@ -96,6 +102,7 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
+        
         $article = $this->articlesRepo->show($id);
 
         if ($article->user_id == Auth::User()->id) {
@@ -116,7 +123,18 @@ class ArticlesController extends Controller
     {
         $request = $request->except(['_token', '_method', 'files']);
 
-        $this->articlesRepo->update($id, $request);
+        $html_url = (Auth::User()->id)."_".time().".html";
+
+        $myfile = fopen("uploads/artical/".$html_url, "w");
+        fwrite($myfile, $request['body']);
+        fclose($myfile);
+        
+        $insert_data = [
+            "title" => $request['title'],
+            'body'  => $html_url
+        ];
+
+        $this->articlesRepo->update($id, $insert_data);
         $article = $this->articlesRepo->show($id);
 
         Session::flash('flash_message', 'Article successfully updated');
