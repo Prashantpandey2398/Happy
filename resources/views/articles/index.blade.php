@@ -21,7 +21,7 @@
                             </thead>
                             <tbody>
                                 @foreach($articles as $article)
-                                    <tr class='clickable-row' data-href='/articles/{{$article->id}}'>
+                                    <tr class='clickable-row' data-href='{{route('articles.show', $article->id)}}'>
                                         <td>
                                             {{ $article->title }}
                                         </td>
