@@ -8354,3 +8354,8 @@ button.close {
   margin-bottom: 10px;
 }
 
+/** Manage width artical image */
+figure.image img {
+  width: 100%;
+}
+/** /Manage width artical image */
