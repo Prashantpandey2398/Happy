@@ -166,12 +166,18 @@ class ArticlesController extends Controller
     }
 
     public function upload_img(Request $request){
-        
-        $ext = $request->file->getClientOriginalExtension();
-        $image_url = (Auth::User()->id)."_".time().".".$ext;
 
-        $request->file->move('uploads/artical',$image_url);
+        $img_urls = [];
 
-        return url('uploads/artical/'.$image_url);
+        foreach($request->file('file') as $value){
+            $ext = $value->getClientOriginalExtension();
+            $image_url = (Auth::User()->id)."_".time().rand(1,1000).".".$ext;
+
+            $value->move('uploads/artical',$image_url);
+
+            array_push($img_urls,url('uploads/artical/'.$image_url));
+        }
+
+        return $img_urls;
     }
 }

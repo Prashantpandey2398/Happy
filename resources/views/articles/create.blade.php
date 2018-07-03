@@ -37,15 +37,18 @@
         height: 200,
         callbacks: {
             onImageUpload: function(files) {
-                sendFile(files[0]);
+                sendFile(files);
             }
         }
     });
 
-    function sendFile(file) {
+    function sendFile(files) {
         
         data = new FormData();
-        data.append("file", file);
+        for(x in files){
+            data.append("file[]", files[x]);
+        }
+        
         $.ajax({
             data: data,
             type: "POST",
@@ -53,9 +56,11 @@
             cache: false,
             contentType: false,
             processData: false,
-            success: function(url) {
-                var imgNode = $('<img>').attr('src',url);
-                $('#editor1').summernote('insertNode', imgNode[0]);
+            success: function(urls) {
+                for(x in urls){
+                    var imgNode = $('<img>').attr('src',urls[x]);
+                    $('#editor1').summernote('insertNode', imgNode[0]);
+                }
             }
         });
     }
