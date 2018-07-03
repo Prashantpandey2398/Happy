@@ -164,4 +164,17 @@ class ArticlesController extends Controller
             abort(404);
         }
     }
+
+    public function upload_img(Request $request){
+        
+        $ext = $request->upload->getClientOriginalExtension();
+        $image_url = (Auth::User()->id)."_".time().".".$ext;
+
+        $request->upload->move('uploads/artical',$image_url);
+
+        return [
+            "uploaded" => true,
+            "url"      => url('uploads/artical/'.$image_url)
+        ];
+    }
 }

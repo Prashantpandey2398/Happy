@@ -16,8 +16,9 @@
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea required class="form-control summernote" id="body" name="body"></textarea>
+                            <textarea id="editor1" required class="form-control" name="body"></textarea>
                         </div>
+                        
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -25,4 +26,18 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+
+@section('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
+<script>
+
+    ClassicEditor.create( document.querySelector( '#editor1' ),{
+        ckfinder: {
+            uploadUrl: '{{ url('upload_artical_img?_token='.csrf_token()) }}'
+        }
+    });
+</script>
 @endsection

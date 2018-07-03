@@ -17,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" required class="form-control summernote" id="body">
+                            <textarea id="editor1" required class="form-control" name="body">
                             <?php 
                                 if(file_exists("uploads/artical/".$article->body)){
                                    echo file_get_contents(url("uploads/artical/".$article->body));
@@ -32,4 +32,16 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
+<script>
+
+    ClassicEditor.create( document.querySelector( '#editor1' ),{
+        ckfinder: {
+            uploadUrl: '{{ url('upload_artical_img?_token='.csrf_token()) }}'
+        }
+    });
+</script>
 @endsection

@@ -21,7 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('articles', 'ArticlesController', ['except' => ['show']]);
     Route::get('articles/{id}/setting', 'ArticlesController@setting')->name('articles.setting');
+    
     Route::resource('users', 'UsersController');
 });
+
+Route::post('upload_artical_img','ArticlesController@upload_img');
 
 Route::get('articles/{id}', 'ArticlesController@show')->name('articles.show');
