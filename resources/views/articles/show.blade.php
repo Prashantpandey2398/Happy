@@ -33,6 +33,9 @@
                         if(file_exists("uploads/artical/".$article->body)){
                             echo file_get_contents(url("uploads/artical/".$article->body));
                         }
+                        else{
+                            echo $article->body;
+                        }
                     ?>
                 </div>
             </div>

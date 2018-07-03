@@ -31,13 +31,33 @@
 
 
 @section('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
 <script>
 
-    ClassicEditor.create( document.querySelector( '#editor1' ),{
-        ckfinder: {
-            uploadUrl: '{{ url('upload_artical_img?_token='.csrf_token()) }}'
+    $('#editor1').summernote({
+        height: 200,
+        callbacks: {
+            onImageUpload: function(files) {
+                sendFile(files[0]);
+            }
         }
     });
+
+    function sendFile(file) {
+        
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "{{ url('upload_artical_img?_token='.csrf_token()) }}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                var imgNode = $('<img>').attr('src',url);
+                $('#editor1').summernote('insertNode', imgNode[0]);
+            }
+        });
+    }
 </script>
 @endsection
