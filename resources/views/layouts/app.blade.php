@@ -12,9 +12,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('editor/summernote/dist/summernote.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- include libraries BS -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
 
@@ -92,10 +91,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ secure_asset('js/app.js') }}"></script>
 
     <script src="{{ asset('editor/summernote/dist/summernote.js') }}"></script>
-
     @yield('scripts')
     <script>
         $('.confirm-delete').on('click', function(event){
@@ -118,5 +116,51 @@
 
     </script>
 
+    <style>
+        #cke_1_top {
+            height: 37px !important;
+            overflow-x: scroll;
+        }
+        /*.note-toolbar {
+            overflow-x: scroll;
+        }*/
+        .note-toolbar {
+           display: flex;
+           overflow-x: scroll;
+            overflow-y: hidden;
+        }
+        .note-toolbar .note-btn-group {
+            display: flex;
+            height: 30px;
+        }
+        .note-btn {
+            height: 30px;
+        }
+    </style>
+
+    <script>
+        $('document').ready(function() {
+            $(".dropdown-toggle").click(function () {
+                if($(this).hasClass("note-btn")) {
+                    var closest_element = $(this).next();
+                    var height = closest_element.height()+50;
+                    if($(this).attr('aria-expanded') === 'true'){
+                        console.log('notclick');
+                        $('.note-toolbar').height('101%');
+                    }
+                    else {
+                        $('.note-toolbar').height(height + 25);
+                    }
+
+                }
+            });
+            $(".dropdown-toggle").blur(function () {
+                if($(this).hasClass("note-btn")) {
+                    $('.note-toolbar').height('101%');
+
+                }
+            });
+        });
+    </script>
 </body>
 </html>
