@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Blog') }}</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Styles -->
-    <link href="{{ asset('editor/summernote/dist/summernote.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('editor/summernote/dist/summernote.css') }}" rel="stylesheet">
     <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
 
     @yield('styles')
@@ -93,7 +93,7 @@
     <!-- Scripts -->
     <script src="{{ secure_asset('js/app.js') }}"></script>
 
-    <script src="{{ asset('editor/summernote/dist/summernote.js') }}"></script>
+    <script src="{{ secure_asset('editor/summernote/dist/summernote.js') }}"></script>
     @yield('scripts')
     <script>
         $('.confirm-delete').on('click', function(event){
