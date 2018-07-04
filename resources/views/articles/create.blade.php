@@ -52,7 +52,7 @@
         $.ajax({
             data: data,
             type: "POST",
-            url: "{{ url('upload_artical_img?_token='.csrf_token()) }}",
+            url: "{{ secure_url('upload_artical_img?_token='.csrf_token()) }}",
             cache: false,
             contentType: false,
             processData: false,
